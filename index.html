@@ -1,203 +1,290 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>TSS Lighting Designer — Blank</title>
-<link rel="stylesheet" href="assets/styles.css" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>TSS Lighting Designer — Pro</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#151922; --ink:#e7eaf0; --muted:#9aa3b2; --accent:#5ea0ff;
+    --chip-blue:#2d6bff; --chip-green:#1ea97c; --chip-yellow:#ffd23c; --chip-red:#e34f4f; --chip-white:#ffffff;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;}
+  header{display:flex; align-items:center; justify-content:space-between; padding:12px 16px; background:var(--panel); border-bottom:1px solid #222838}
+  h1{font-size:16px; margin:0; letter-spacing:.3px}
+  .toolbar{display:flex; gap:8px; align-items:center}
+  .btn{background:#1e2430; color:#e7eaf0; border:1px solid #2a3142; border-radius:8px; padding:8px 10px; cursor:pointer}
+  .btn:hover{border-color:#3a455c}
+  .danger{background:#2a1313; border-color:#5a2323}
+  .wrap{display:grid; grid-template-columns:280px 1fr; height:calc(100% - 58px)}
+
+  /* Sidebar */
+  aside{background:var(--panel); border-right:1px solid #222838; overflow:auto}
+  .slot{padding:12px 12px 4px; border-bottom:1px solid #202534}
+  .slot h3{margin:0 0 8px 0; font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.12em}
+  .palette{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+  .pill{display:flex; gap:8px; align-items:center; padding:8px; border-radius:10px; background:#1b2030; border:1px solid #2a3142; cursor:grab; user-select:none}
+  .pill:hover{border-color:#3a455c}
+  .ico{width:22px; height:22px; border-radius:50%; display:grid; place-items:center; color:#000; font-weight:700; font-size:11px}
+  .ico.blue{background:var(--chip-blue); color:#fff}
+  .ico.green{background:var(--chip-green); color:#fff}
+  .ico.yellow{background:var(--chip-yellow)}
+  .ico.red{background:var(--chip-red); color:#fff}
+  .ico.white{background:#ddd}
+  .pill span{font-size:12px}
+
+  /* Stage */
+  .stage-wrap{position:relative; overflow:auto}
+  .dropzone{position:relative; margin:12px; border:2px dashed #2a3142; border-radius:12px; min-height:520px; display:grid; place-items:center; color:var(--muted)}
+  .dropzone.drag{border-color:var(--accent); box-shadow:0 0 0 3px rgba(94,160,255,.2) inset}
+  #floor{max-width:100%; width:100%; display:block; border-radius:10px}
+  .hint{position:absolute; text-align:center; font-size:14px; pointer-events:none}
+  .hint b{color:#dfe6f5}
+
+  /* Annotation tags */
+  .tag{position:absolute; left:40px; top:40px; transform-origin:center; padding:6px 10px 6px 8px; border-radius:10px; background:#223; border:1px solid #2a3142; color:#fff; box-shadow:0 6px 16px rgba(0,0,0,.25);
+       display:flex; align-items:center; gap:8px; cursor:grab; touch-action:none;}
+  .tag.drag{cursor:grabbing; opacity:.95}
+  .tag .ico{box-shadow:0 0 0 2px rgba(255,255,255,.08) inset}
+  .tag .label{font-size:13px; font-weight:700; letter-spacing:.2px}
+
+  /* Controls overlay */
+  .floating{position:fixed; right:16px; bottom:16px; display:flex; flex-direction:column; gap:8px}
+  .floating .btn{padding:10px 12px}
+
+  /* Image picker modal */
+  dialog{border:none; border-radius:12px; background:#0f1420; color:#e7eaf0; width:min(720px, 92vw);}
+  dialog::backdrop{background:rgba(0,0,0,.6)}
+  .modal{padding:18px}
+  .modal h2{margin:0 0 8px 0; font-size:16px}
+  .modal .row{display:flex; gap:8px; margin-top:8px}
+  .modal input[type="text"]{flex:1; background:#0c1019; color:#e7eaf0; border:1px solid #2a3142; border-radius:8px; padding:8px}
+  .modal .btn{white-space:nowrap}
+  .note{font-size:12px; color:#9aa3b2}
+</style>
 </head>
 <body>
   <header>
-    <h1>TSS Lighting Designer — Blank</h1>
+    <h1>🎥 TSS Lighting Designer — Pro</h1>
     <div class="toolbar">
-      <label>Upload floor plan image: <input type="file" id="imgInput" accept="image/*"></label>
-      <button id="resetBtn" title="Reset to clean blank">Reset</button>
-      <div class="adder">
-        <label for="itemType">Add:</label>
-        <select id="itemType">
-          <optgroup label="Camera">
-            <option value="camera blue">Camera</option>
-            <option value="dolly blue">Dolly</option>
-          </optgroup>
-          <optgroup label="Talent / Set">
-            <option value="subject green">Subject</option>
-            <option value="table white">Table</option>
-            <option value="chair white">Chair</option>
-            <option value="door white">Door / Window</option>
-          </optgroup>
-          <optgroup label="Lights">
-            <option value="skypanel yellow">Skypanel</option>
-            <option value="nanlite yellow">Nanlite 500B</option>
-            <option value="tung5k yellow">5K Tungsten</option>
-            <option value="practical white">Practical Lamp</option>
-          </optgroup>
-          <optgroup label="Grip / Rigging">
-            <option value="neg red">4×4 Solid (Neg)</option>
-            <option value="diff white">8×8 Diffusion</option>
-            <option value="cstand white">C‑Stand</option>
-            <option value="sandbag white">Sandbag</option>
-          </optgroup>
-          <optgroup label="Notes">
-            <option value="note white">Note</option>
-          </optgroup>
-        </select>
-        <button id="addItemBtn">+ Add Item</button>
-      </div>
+      <button id="imgBtn" class="btn">📄 Set Floor Plan</button>
+      <button id="resetBtn" class="btn danger">Reset Layout</button>
+      <button id="exportBtn" class="btn">Export JSON</button>
+      <button id="importBtn" class="btn">Import JSON</button>
     </div>
-    <p class="tip">Drag labels to place. Double‑click to rename. Right‑click for Duplicate / Rotate / Delete. Everything saves locally in your browser. Share this file and your friends can upload their own floor plan.</p>
   </header>
 
-  <main>
-    <div class="stage" id="stage">
-      <img id="floorImg" src="" alt="Upload a floor plan image using the control above." />
-      <!-- No default annotations so it's truly blank -->
-    </div>
-  </main>
+  <div class="wrap">
+    <aside>
+      <div class="slot">
+        <h3>Camera</h3>
+        <div class="palette" id="pal-camera"></div>
+      </div>
+      <div class="slot">
+        <h3>Talent / Set</h3>
+        <div class="palette" id="pal-set"></div>
+      </div>
+      <div class="slot">
+        <h3>Lights</h3>
+        <div class="palette" id="pal-lights"></div>
+      </div>
+      <div class="slot">
+        <h3>Grip / Rigging</h3>
+        <div class="palette" id="pal-grip"></div>
+      </div>
+    </aside>
 
-  <footer>
-    <small>Made for film students. No server needed — pure HTML/JS.</small>
-  </footer>
+    <div class="stage-wrap">
+      <div class="dropzone" id="drop">
+        <img id="floor" src="" alt=""/>
+        <div class="hint" id="hint">Drop a floor plan image here or click <b>Set Floor Plan</b>.
+          <br/>Then drag items from the left palette.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="floating">
+    <button class="btn" id="addNote">+ Add Note</button>
+  </div>
+
+  <!-- Image picker modal -->
+  <dialog id="picker">
+    <div class="modal">
+      <h2>Set Floor Plan</h2>
+      <div class="row">
+        <input type="file" id="fileInput" accept="image/*" class="btn"/>
+        <button id="useFile" class="btn">Use File</button>
+      </div>
+      <div class="row">
+        <input type="text" id="urlInput" placeholder="Paste image URL (https://...)"/>
+        <button id="useURL" class="btn">Use URL</button>
+      </div>
+      <p class="note">Tip: Large images are fine — they will scale to the dropzone width.</p>
+      <div class="row" style="justify-content:flex-end; margin-top:12px;">
+        <button id="closePicker" class="btn">Close</button>
+      </div>
+    </div>
+  </dialog>
 
 <script>
-(function(){
-  const LS_LAYOUT = 'tssld-layout-v1';
-  const LS_IMAGE  = 'tssld-image-v1';
-  const stage = document.getElementById('stage');
-  const img   = document.getElementById('floorImg');
-
-  // ---------- Drag / Edit / Context menu ----------
-  window.makeDraggable = function(el){
-    let sx=0, sy=0, lx=0, ty=0, drag=false;
-    const down=(ev)=>{
-      const e=ev.touches?ev.touches[0]:ev;
-      drag=true; el.classList.add('dragging');
-      sx=e.clientX; sy=e.clientY;
-      lx=parseFloat(el.style.left)||0; ty=parseFloat(el.style.top)||0;
-      document.addEventListener('mousemove',move);
-      document.addEventListener('mouseup',up);
-      document.addEventListener('touchmove',move,{passive:false});
-      document.addEventListener('touchend',up);
-      ev.preventDefault();
-    };
-    const move=(ev)=>{
-      if(!drag) return;
-      const e=ev.touches?ev.touches[0]:ev;
-      el.style.left = (lx + e.clientX - sx) + 'px';
-      el.style.top  = (ty + e.clientY - sy) + 'px';
-      ev.preventDefault();
-    };
-    const up=()=>{
-      if(!drag) return;
-      drag=false; el.classList.remove('dragging');
-      document.removeEventListener('mousemove',move);
-      document.removeEventListener('mouseup',up);
-      document.removeEventListener('touchmove',move);
-      document.removeEventListener('touchend',up);
-      save();
-    };
-    el.addEventListener('mousedown',down);
-    el.addEventListener('touchstart',down,{passive:false});
-
-    // Rename
-    el.addEventListener('dblclick',()=>{
-      const t=prompt('Edit label text:', el.textContent.trim());
-      if(t!==null){ el.textContent=t; save(); }
-    });
-
-    // Context menu
-    el.addEventListener('contextmenu',(e)=>{
-      e.preventDefault();
-      const c=prompt('Type: dup (duplicate), rot (rotate 90°), del (delete)');
-      if(!c) return;
-      if(c==='dup'){
-        const cl=el.cloneNode(true);
-        cl.dataset.id='item-'+Math.random().toString(36).slice(2,8);
-        cl.style.left=(parseFloat(el.style.left||'0')+20)+'px';
-        cl.style.top =(parseFloat(el.style.top ||'0')+20)+'px';
-        stage.appendChild(cl); makeDraggable(cl);
-      } else if(c==='rot'){
-        const m=(el.style.transform.match(/rotate\(([-\d]+)deg\)/)||[null,'0']);
-        const n=(parseInt(m[1],10)+90)%360;
-        el.style.transform=`rotate(${n}deg)`;
-      } else if(c==='del'){
-        el.remove();
-      }
-      save();
-    });
+(()=>{
+  const LS = {
+    layout: 'tssld-pro-layout-v1',
+    image:  'tssld-pro-image-v1'
   };
 
-  // ---------- Persistence ----------
-  function serialize(){
-    const items=[];
-    stage.querySelectorAll('.annotation').forEach(el=>{
-      items.push({
-        id: el.dataset.id||'',
-        type: el.dataset.type||'',
-        cls: Array.from(el.classList).filter(c=>!['annotation','dragging'].includes(c)).join(' '),
-        text: el.textContent.trim(),
-        left: el.style.left, top: el.style.top,
-        rotate: (el.style.transform||'').match(/rotate\(([-\d]+)deg\)/)?.[1]||0
+  const drop = document.getElementById('drop');
+  const floor = document.getElementById('floor');
+  const hint  = document.getElementById('hint');
+
+  const picker = document.getElementById('picker');
+  const imgBtn = document.getElementById('imgBtn');
+  const fileInput = document.getElementById('fileInput');
+  const urlInput  = document.getElementById('urlInput');
+
+  const addNote = document.getElementById('addNote');
+  const resetBtn = document.getElementById('resetBtn');
+  const exportBtn = document.getElementById('exportBtn');
+  const importBtn = document.getElementById('importBtn');
+
+  // ---- Palettes ----
+  const defs = {
+    camera: [
+      {type:'camera', label:'Camera', color:'blue', icon:'CAM'},
+      {type:'dolly', label:'Dolly', color:'blue', icon:'DLY'},
+      {type:'tripod', label:'Tripod', color:'blue', icon:'TRI'}
+    ],
+    set: [
+      {type:'subject', label:'Subject', color:'green', icon:'SUB'},
+      {type:'table', label:'Table', color:'white', icon:'TBL'},
+      {type:'chair', label:'Chair', color:'white', icon:'CHR'},
+      {type:'door', label:'Door/Window', color:'white', icon:'DR'}
+    ],
+    lights: [
+      {type:'skypanel', label:'Skypanel S60/S120', color:'yellow', icon:'SKY'},
+      {type:'nanlite', label:'Nanlite 500B', color:'yellow', icon:'500B'},
+      {type:'tung2k', label:'2K Tungsten', color:'yellow', icon:'2K'},
+      {type:'tung5k', label:'5K Tungsten', color:'yellow', icon:'5K'},
+      {type:'practical', label:'Practical', color:'white', icon:'PRC'},
+      {type:'edge', label:'Edge Light', color:'yellow', icon:'EDG'}
+    ],
+    grip: [
+      {type:'neg', label:'4×4 Solid (Neg)', color:'red', icon:'NEG'},
+      {type:'diff8', label:'8×8 Diffusion', color:'white', icon:'8×8'},
+      {type:'flag', label:'Flag', color:'red', icon:'FLG'},
+      {type:'cstand', label:'C-Stand', color:'white', icon:'CS'},
+      {type:'combo', label:'Combo Stand', color:'white', icon:'CB'},
+      {type:'sandbag', label:'Sandbag', color:'white', icon:'SB'}
+    ]
+  };
+
+  function buildPalette(list, mount){
+    list.forEach(item=>{
+      const pill = document.createElement('div');
+      pill.className = 'pill';
+      pill.draggable = true;
+      pill.addEventListener('dragstart', ev=>{
+        ev.dataTransfer.setData('application/json', JSON.stringify(item));
       });
+      const ico = document.createElement('div'); ico.className = 'ico '+item.color; ico.textContent=item.icon;
+      const label = document.createElement('span'); label.textContent=item.label;
+      pill.appendChild(ico); pill.appendChild(label);
+      pill.addEventListener('click', ()=> createTag(item, 60, 60));
+      mount.appendChild(pill);
     });
+  }
+  buildPalette(defs.camera, document.getElementById('pal-camera'));
+  buildPalette(defs.set,    document.getElementById('pal-set'));
+  buildPalette(defs.lights, document.getElementById('pal-lights'));
+  buildPalette(defs.grip,   document.getElementById('pal-grip'));
+
+  // ---- Dropzone image handling ----
+  function setImage(src){
+    floor.src = src; hint.style.display = src ? 'none' : 'block';
+    localStorage.setItem(LS.image, src);
+  }
+  const savedImg = localStorage.getItem(LS.image); if(savedImg) setImage(savedImg);
+
+  ;['dragenter','dragover'].forEach(evt=>drop.addEventListener(evt, e=>{ e.preventDefault(); drop.classList.add('drag'); }));
+  ;['dragleave','drop'].forEach(evt=>drop.addEventListener(evt, e=>{ e.preventDefault(); drop.classList.remove('drag'); }));
+  drop.addEventListener('drop', e=>{
+    const f = e.dataTransfer.files && e.dataTransfer.files[0];
+    if(f && f.type.startsWith('image/')){
+      const r=new FileReader(); r.onload=ev=> setImage(ev.target.result); r.readAsDataURL(f);
+    }
+  });
+
+  imgBtn.addEventListener('click', ()=> picker.showModal());
+  document.getElementById('closePicker').addEventListener('click', ()=> picker.close());
+  document.getElementById('useFile').addEventListener('click', ()=>{
+    const f=fileInput.files && fileInput.files[0]; if(!f) return;
+    const r=new FileReader(); r.onload=ev=>{ setImage(ev.target.result); picker.close(); }; r.readAsDataURL(f);
+  });
+  document.getElementById('useURL').addEventListener('click', ()=>{ const u=urlInput.value.trim(); if(u){ setImage(u); picker.close(); }});
+
+  // ---- Tags (annotations) ----
+  function createTag(def, x=120, y=120, text){
+    const tag = document.createElement('div');
+    tag.className = 'tag';
+    tag.dataset.type = def.type; tag.dataset.color = def.color;
+    tag.style.left = x+'px'; tag.style.top = y+'px';
+    const ico = document.createElement('div'); ico.className = 'ico '+def.color; ico.textContent = def.icon;
+    const label = document.createElement('div'); label.className='label'; label.textContent = text || def.label;
+    tag.appendChild(ico); tag.appendChild(label);
+    drop.appendChild(tag);
+    makeDraggable(tag);
+    save();
+    return tag;
+  }
+
+  // Drag from palettes to stage (via HTML5 DnD)
+  drop.addEventListener('dragover', e=> e.preventDefault());
+  drop.addEventListener('drop', e=>{
+    e.preventDefault();
+    const data = e.dataTransfer.getData('application/json');
+    if(!data) return;
+    const def = JSON.parse(data);
+    const rect = drop.getBoundingClientRect();
+    createTag(def, e.clientX - rect.left - 40, e.clientY - rect.top - 20);
+  });
+
+  // Make a tag draggable & editable
+  function makeDraggable(el){
+    let sx=0, sy=0, lx=0, ty=0, drag=false;
+    const down=(ev)=>{ const e=ev.touches?ev.touches[0]:ev; drag=true; el.classList.add('drag'); sx=e.clientX; sy=e.clientY; lx=parseFloat(el.style.left)||0; ty=parseFloat(el.style.top)||0; document.addEventListener('mousemove',move); document.addEventListener('mouseup',up); document.addEventListener('touchmove',move,{passive:false}); document.addEventListener('touchend',up); ev.preventDefault(); };
+    const move=(ev)=>{ if(!drag) return; const e=ev.touches?ev.touches[0]:ev; el.style.left=(lx+e.clientX-sx)+'px'; el.style.top=(ty+e.clientY-sy)+'px'; ev.preventDefault(); };
+    const up=()=>{ if(!drag) return; drag=false; el.classList.remove('drag'); document.removeEventListener('mousemove',move); document.removeEventListener('mouseup',up); document.removeEventListener('touchmove',move); document.removeEventListener('touchend',up); save(); };
+    el.addEventListener('mousedown',down); el.addEventListener('touchstart',down,{passive:false});
+    el.addEventListener('dblclick',()=>{ const t=prompt('Rename label:', el.querySelector('.label').textContent.trim()); if(t!==null){ el.querySelector('.label').textContent=t; save(); }});
+    el.addEventListener('contextmenu', (e)=>{ e.preventDefault(); const c=prompt('dup (duplicate), rot (rotate 90°), del (delete)'); if(!c) return; if(c==='dup'){ const rect=el.getBoundingClientRect(); const pr=drop.getBoundingClientRect(); const clone=createTag({type:el.dataset.type,label:el.querySelector('.label').textContent,color:el.dataset.color,icon:el.querySelector('.ico').textContent}, rect.left-pr.left+20, rect.top-pr.top+20); } else if(c==='rot'){ const m=(el.style.transform.match(/rotate\(([-\d]+)deg\)/)||[null,'0']); const n=(parseInt(m[1],10)+90)%360; el.style.transform=`rotate(${n}deg)`; save(); } else if(c==='del'){ el.remove(); save(); } });
+  }
+
+  // ---- Notes ----
+  addNote.addEventListener('click', ()=> createTag({type:'note', label:'Note', color:'white', icon:'✎'}));
+
+  // ---- Save / Load layout ----
+  function serialize(){
+    const items = Array.from(drop.querySelectorAll('.tag')).map(el=>({
+      type: el.dataset.type, color: el.dataset.color, icon: el.querySelector('.ico').textContent,
+      text: el.querySelector('.label').textContent.trim(), left: el.style.left, top: el.style.top, rot: (el.style.transform||'').match(/rotate\(([-\d]+)deg\)/)?.[1]||0
+    }));
     return { items };
   }
   function hydrate(data){
-    if(!data || !Array.isArray(data.items)) return;
-    stage.querySelectorAll('.annotation').forEach(el=>el.remove());
-    data.items.forEach(it=>{
-      const el=document.createElement('div');
-      el.className='annotation '+(it.cls||'white');
-      el.dataset.id = it.id || ('item-'+Math.random().toString(36).slice(2,8));
-      el.dataset.type = it.type||'';
-      el.textContent = it.text||'Item';
-      el.style.left = it.left||'40px'; el.style.top = it.top||'40px';
-      if(it.rotate){ el.style.transform=`rotate(${it.rotate}deg)`; }
-      stage.appendChild(el); makeDraggable(el);
-    });
+    drop.querySelectorAll('.tag').forEach(el=>el.remove());
+    (data.items||[]).forEach(it=>{ const tag=createTag({type:it.type,label:it.text,color:it.color,icon:it.icon}, parseFloat(it.left)||40, parseFloat(it.top)||40, it.text); if(it.rot){ tag.style.transform=`rotate(${it.rot}deg)`; }});
   }
-  function save(){ localStorage.setItem(LS_LAYOUT, JSON.stringify(serialize())); }
-  function load(){
-    const raw=localStorage.getItem(LS_LAYOUT);
-    if(raw){ try{ hydrate(JSON.parse(raw)); }catch(e){} }
-  }
-
-  // ---------- Image upload ----------
-  document.getElementById('imgInput').addEventListener('change',(e)=>{
-    const f=e.target.files && e.target.files[0]; if(!f) return;
-    const r=new FileReader();
-    r.onload=(ev)=>{ img.src=ev.target.result; localStorage.setItem(LS_IMAGE, ev.target.result); };
-    r.readAsDataURL(f);
-  });
-  const savedImg=localStorage.getItem(LS_IMAGE); if(savedImg){ img.src=savedImg; }
-
-  // ---------- Add items ----------
-  function mapLabel(type){
-    const m={ camera:'Camera', dolly:'Dolly', subject:'Subject / Actor', table:'Table', chair:'Chair', door:'Door / Window',
-      skypanel:'Skypanel', nanlite:'Nanlite 500B', tung5k:'5K Tungsten', practical:'Practical Lamp',
-      neg:'4×4 Solid (Neg)', diff:'8×8 Diffusion', cstand:'C‑Stand', sandbag:'Sandbag', note:'Note' };
-    return m[type]||'Item';
-  }
-  document.getElementById('addItemBtn').addEventListener('click',()=>{
-    const [type, cls] = document.getElementById('itemType').value.split(' ');
-    const el=document.createElement('div');
-    el.className = `annotation ${cls||'white'}`;
-    el.dataset.id = 'item-'+Math.random().toString(36).slice(2,8);
-    el.dataset.type = type||'item';
-    el.style.left='40px'; el.style.top='40px';
-    el.textContent = mapLabel(type);
-    stage.appendChild(el); makeDraggable(el); save();
-  });
-
-  // ---------- Reset ----------
-  document.getElementById('resetBtn').addEventListener('click',()=>{
-    localStorage.removeItem(LS_LAYOUT);
-    stage.querySelectorAll('.annotation').forEach(el=>el.remove());
-    // keep image as-is (so users don't lose their uploaded plan)
-    save();
-  });
-
-  // kick it off
+  function save(){ localStorage.setItem(LS.layout, JSON.stringify(serialize())); }
+  function load(){ const raw=localStorage.getItem(LS.layout); if(raw){ try{ hydrate(JSON.parse(raw)); }catch(e){} }}
   load();
-})();</script>
+
+  resetBtn.addEventListener('click', ()=>{ localStorage.removeItem(LS.layout); drop.querySelectorAll('.tag').forEach(el=>el.remove()); });
+
+  exportBtn.addEventListener('click', ()=>{ const blob=new Blob([JSON.stringify(serialize(),null,2)], {type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='tss-lighting-layout.json'; a.click(); });
+  importBtn.addEventListener('click', ()=>{ const i=document.createElement('input'); i.type='file'; i.accept='application/json'; i.onchange=()=>{ const f=i.files[0]; if(!f) return; const r=new FileReader(); r.onload=ev=>{ try{ const data=JSON.parse(ev.target.result); hydrate(data); save(); }catch(e){ alert('Invalid JSON'); } }; r.readAsText(f); }; i.click(); });
+})();
+</script>
 </body>
 </html>
