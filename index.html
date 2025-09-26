@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>TSS Lighting Designer — Single File</title>
+<style>
+  :root{--bg:#0f1115;--panel:#151922;--ink:#e7eaf0;--muted:#9aa3b2;--accent:#5ea0ff;--chip-blue:#2d6bff;--chip-green:#1ea97c;--chip-yellow:#ffd23c;--chip-red:#e34f4f;}
+  *{box-sizing:border-box} html,body{height:100%} body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;}
+  header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--panel);border-bottom:1px solid #222838}
+  h1{font-size:16px;margin:0} .btn{background:#1e2430;color:#e7eaf0;border:1px solid #2a3142;border-radius:8px;padding:8px 10px;cursor:pointer} .btn:hover{border-color:#3a455c}
+  .wrap{display:grid;grid-template-columns:310px 1fr;height:calc(100% - 58px)} aside{background:var(--panel);border-right:1px solid #222838;overflow:auto}
+  .slot{padding:12px;border-bottom:1px solid #202534} .slot h3{margin:0 0 8px 0;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+  input#search{width:100%;padding:8px;border-radius:8px;border:1px solid #2a3142;background:#0f1420;color:#e7eaf0}
+  .palette{display:grid;grid-template-columns:1fr 1fr;gap:8px} .pill{display:flex;gap:8px;align-items:center;padding:8px;border-radius:10px;background:#1b2030;border:1px solid #2a3142;cursor:grab}
+  .ico{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;color:#000;font-weight:700;font-size:11px}
+  .ico.blue{background:var(--chip-blue);color:#fff} .ico.green{background:var(--chip-green);color:#fff} .ico.yellow{background:var(--chip-yellow)} .ico.red{background:var(--chip-red);color:#fff} .pill span{font-size:12px}
+  .stage-wrap{position:relative;overflow:auto} .dropzone{position:relative;margin:12px;border:2px dashed #2a3142;border-radius:12px;min-height:520px;display:grid;place-items:center;color:var(--muted)}
+  .dropzone.drag{border-color:var(--accent);box-shadow:0 0 0 3px rgba(94,160,255,.2) inset} #floor{max-width:100%;width:100%;display:block;border-radius:10px}
+  .hint{position:absolute;text-align:center;font-size:14px;pointer-events:none} .hint b{color:#dfe6f5}
+  .tag{position:absolute;left:40px;top:40px;transform-origin:center;padding:6px 10px 6px 8px;border-radius:10px;background:#223;border:1px solid #2a3142;color:#fff;box-shadow:0 6px 16px rgba(0,0,0,.25);display:flex;align-items:center;gap:8px;cursor:grab;touch-action:none;}
+  .tag.drag{cursor:grabbing;opacity:.95} .tag .label{font-size:13px;font-weight:700;letter-spacing:.2px}
+  dialog{border:none;border-radius:12px;background:#0f1420;color:#e7eaf0;width:min(720px,92vw);} dialog::backdrop{background:rgba(0,0,0,.6)}
+  .modal{padding:18px} .modal .row{display:flex;gap:8px;margin-top:8px} .modal input[type='text']{flex:1;background:#0c1019;color:#e7eaf0;border:1px solid #2a3142;border-radius:8px;padding:8px}
+</style>
+</head>
+<body>
+<!-- SVG icons -->
+<svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+  <symbol id="ico-camera" viewBox="0 0 24 24"><path fill="currentColor" d="M9 7l1.5-2h3L15 7h3a3 3 0 013 3v7a3 3 0 01-3 3H6a3 3 0 01-3-3v-7a3 3 0 013-3h3zm3 3a5 5 0 100 10 5 5 0 000-10z"/></symbol>
+  <symbol id="ico-fresnel" viewBox="0 0 24 24"><path fill="currentColor" d="M3 7h12l6 5-6 5H3zM8 7v10"/></symbol>
+  <symbol id="ico-skypanel" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2" fill="currentColor"/><path d="M6 9h12M6 12h12M6 15h6" stroke="#0f1115" stroke-width="1.5"/></symbol>
+  <symbol id="ico-panel" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2" fill="currentColor"/></symbol>
+  <symbol id="ico-flag" viewBox="0 0 24 24"><path fill="currentColor" d="M5 3v18"/><path d="M7 4h12l-4 5h-8z" fill="currentColor"/></symbol>
+  <symbol id="ico-frame" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1" fill="currentColor"/></symbol>
+  <symbol id="ico-cstand" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3v10m-5 8h10M9 21l3-8 3 8" stroke="currentColor" stroke-width="1.5"/></symbol>
+  <symbol id="ico-combo" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3v10m-6 8h12M8 21l4-7 4 7" stroke="currentColor" stroke-width="1.5"/></symbol>
+  <symbol id="ico-sandbag" viewBox="0 0 24 24"><path d="M6 18h12l-2-7H8z" fill="currentColor"/></symbol>
+  <symbol id="ico-bulb" viewBox="0 0 24 24"><path d="M12 3a7 7 0 00-4 13v3h8v-3a7 7 0 00-4-13z" fill="currentColor"/></symbol>
+  <symbol id="ico-cable" viewBox="0 0 24 24"><path d="M4 10c4 0 4 6 8 6s4-6 8-6" stroke="currentColor" stroke-width="1.5" fill="none"/></symbol>
+  <symbol id="ico-point-light" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M3 12h5M16 12h5M12 3v5M12 16v5" stroke="currentColor" stroke-width="1.5"/></symbol>
+</svg>
+
+<header>
+  <h1>🎥 TSS Lighting Designer — Single File</h1>
+  <div>
+    <button id="imgBtn" class="btn">📄 Set Floor Plan</button>
+    <button id="resetBtn" class="btn">Reset</button>
+    <button id="exportBtn" class="btn">Export JSON</button>
+    <button id="importBtn" class="btn">Import JSON</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <aside>
+    <div class="slot">
+      <h3>Library</h3>
+      <input id="search" placeholder="Search equipment…"/>
+    </div>
+    <div class="slot"><h3>Camera</h3><div class="palette" id="pal-camera"></div></div>
+    <div class="slot"><h3>Talent / Set</h3><div class="palette" id="pal-set"></div></div>
+    <div class="slot"><h3>Lights</h3><div class="palette" id="pal-lights"></div></div>
+    <div class="slot"><h3>Grip / Rigging</h3><div class="palette" id="pal-grip"></div></div>
+  </aside>
+
+  <div class="stage-wrap">
+    <div class="dropzone" id="drop">
+      <img id="floor" src="" alt=""/>
+      <div class="hint" id="hint">Drop a floor plan image here or click <b>Set Floor Plan</b>.<br/>Then drag items from the left palette.</div>
+    </div>
+  </div>
+</div>
+
+<dialog id="picker">
+  <div class="modal">
+    <h2>Set Floor Plan</h2>
+    <div class="row">
+      <input type="file" id="fileInput" accept="image/*" class="btn"/>
+      <button id="useFile" class="btn">Use File</button>
+    </div>
+    <div class="row">
+      <input type="text" id="urlInput" placeholder="Paste image URL (https://...)"/>
+      <button id="useURL" class="btn">Use URL</button>
+    </div>
+    <div class="row" style="justify-content:flex-end;margin-top:12px">
+      <button id="closePicker" class="btn">Close</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+(()=>{
+  const LS={layout:'tssld-single-layout', image:'tssld-single-image'};
+  const ICON_MAP={camera:'ico-camera',fresnel:'ico-fresnel',skypanel:'ico-skypanel',panel:'ico-panel',flag:'ico-flag',frame:'ico-frame',cstand:'ico-cstand',combo:'ico-combo',sandbag:'ico-sandbag',bulb:'ico-bulb',cable:'ico-cable','point-light':'ico-point-light'};
+
+  const drop=document.getElementById('drop'), floor=document.getElementById('floor'), hint=document.getElementById('hint');
+  const picker=document.getElementById('picker'), imgBtn=document.getElementById('imgBtn'), fileInput=document.getElementById('fileInput'), urlInput=document.getElementById('urlInput');
+  const resetBtn=document.getElementById('resetBtn'), exportBtn=document.getElementById('exportBtn'), importBtn=document.getElementById('importBtn');
+
+  const CATALOG = JSON.parse(document.getElementById('catalog').textContent);
+
+  function pickColor(category){ if(category==='camera')return'blue'; if(category==='lights')return'yellow'; if(category==='grip'||category==='rigging')return'red'; if(category==='set'||category==='practicals'||category==='power'||category==='sound'||category==='misc')return'white'; return'white'; }
+  function pal(id){ return document.getElementById('pal-'+id); }
+  function paletteMounts(){ return {camera:pal('camera'), set:pal('set'), lights:pal('lights'), grip:pal('grip')}; }
+
+  function makePillFromItem(item){
+    const pill=document.createElement('div'); pill.className='pill'; pill.draggable=true;
+    const ico=document.createElementNS('http://www.w3.org/2000/svg','svg'); ico.setAttribute('class','ico '+pickColor(item.category));
+    const use=document.createElementNS('http://www.w3.org/2000/svg','use'); use.setAttributeNS('http://www.w3.org/1999/xlink','href','#'+(ICON_MAP[item.icon]||ICON_MAP.camera)); ico.appendChild(use);
+    const label=document.createElement('span'); label.textContent=item.name;
+    pill.appendChild(ico); pill.appendChild(label);
+    pill.addEventListener('dragstart', ev=>{ ev.dataTransfer.setData('application/json', JSON.stringify({type:item.id,label:item.name,color:pickColor(item.category),icon:(ICON_MAP[item.icon]||ICON_MAP.camera)})); });
+    pill.addEventListener('click', ()=> createTag({type:item.id,label:item.name,color:pickColor(item.category),icon:(ICON_MAP[item.icon]||ICON_MAP.camera)}, 80, 80));
+    return pill;
+  }
+
+  function renderPalettes(filter=''){
+    const mounts=paletteMounts(); Object.values(mounts).forEach(el=> el.innerHTML='');
+    const term=(filter||'').toLowerCase();
+    const byCat={};
+    for(const it of CATALOG.items){ if(term && !(it.name.toLowerCase().includes(term) || it.id.includes(term))) continue; (byCat[it.category] ||= []).push(it); }
+    for(const [cat,list] of Object.entries(byCat)){ const mount=mounts[cat]||mounts.set; list.forEach(item=> mount.appendChild(makePillFromItem(item))); }
+  }
+  renderPalettes();
+  document.getElementById('search').addEventListener('input', e=> renderPalettes(e.target.value));
+
+  function createTag(def, x=120, y=120, text){
+    const tag=document.createElement('div'); tag.className='tag'; tag.dataset.type=def.type; tag.dataset.color=def.color; tag.style.left=x+'px'; tag.style.top=y+'px';
+    const svg=document.createElementNS('http://www.w3.org/2000/svg','svg'); svg.setAttribute('class','ico '+def.color);
+    const use=document.createElementNS('http://www.w3.org/2000/svg','use'); use.setAttributeNS('http://www.w3.org/1999/xlink','href','#'+def.icon); svg.appendChild(use);
+    const label=document.createElement('div'); label.className='label'; label.textContent=text||def.label;
+    tag.appendChild(svg); tag.appendChild(label); drop.appendChild(tag); makeDraggable(tag); save(); return tag;
+  }
+
+  drop.addEventListener('dragover', e=> e.preventDefault());
+  drop.addEventListener('drop', e=>{ e.preventDefault(); const data=e.dataTransfer.getData('application/json'); if(!data) return; const def=JSON.parse(data); const rect=drop.getBoundingClientRect(); createTag(def, e.clientX-rect.left-40, e.clientY-rect.top-20); });
+
+  function makeDraggable(el){
+    let sx=0, sy=0, lx=0, ty=0, drag=false;
+    const down=(ev)=>{ const e=ev.touches?ev.touches[0]:ev; drag=true; el.classList.add('drag'); sx=e.clientX; sy=e.clientY; lx=parseFloat(el.style.left)||0; ty=parseFloat(el.style.top)||0; document.addEventListener('mousemove',move); document.addEventListener('mouseup',up); document.addEventListener('touchmove',move,{passive:false}); document.addEventListener('touchend',up); ev.preventDefault(); };
+    const move=(ev)=>{ if(!drag) return; const e=ev.touches?ev.touches[0]:ev; el.style.left=(lx+e.clientX-sx)+'px'; el.style.top=(ty+e.clientY-sy)+'px'; ev.preventDefault(); };
+    const up=()=>{ if(!drag) return; drag=false; el.classList.remove('drag'); document.removeEventListener('mousemove',move); document.removeEventListener('mouseup',up); document.removeEventListener('touchmove',move); document.removeEventListener('touchend',up); save(); };
+    el.addEventListener('mousedown',down); el.addEventListener('touchstart',down,{passive:false});
+    el.addEventListener('dblclick',()=>{ const t=prompt('Rename label:', el.querySelector('.label').textContent.trim()); if(t!==null){ el.querySelector('.label').textContent=t; save(); }});
+    el.addEventListener('contextmenu', (e)=>{ e.preventDefault(); const c=prompt('dup (duplicate), rot (rotate 90°), del (delete)'); if(!c) return; if(c==='dup'){ const rect=el.getBoundingClientRect(); const pr=drop.getBoundingClientRect(); createTag({type:el.dataset.type,label:el.querySelector('.label').textContent,color:el.dataset.color,icon:el.querySelector('use').getAttribute('href').slice(1)}, rect.left-pr.left+20, rect.top-pr.top+20); } else if(c==='rot'){ const m=(el.style.transform.match(/rotate\\(([-\\d]+)deg\\)/)||[null,'0']); const n=(parseInt(m[1],10)+90)%360; el.style.transform=`rotate(${n}deg)`; save(); } else if(c==='del'){ el.remove(); save(); } });
+  }
+
+  function serialize(){ const items = Array.from(drop.querySelectorAll('.tag')).map(el=>({type:el.dataset.type,color:el.dataset.color,icon:el.querySelector('use').getAttribute('href').slice(1),text:el.querySelector('.label').textContent.trim(),left:el.style.left,top:el.style.top,rot:(el.style.transform||'').match(/rotate\\(([-\\d]+)deg\\)/)?.[1]||0})); return {items}; }
+  function hydrate(data){ drop.querySelectorAll('.tag').forEach(el=>el.remove()); (data.items||[]).forEach(it=>{ const tag=createTag({type:it.type,label:it.text,color:it.color,icon:it.icon}, parseFloat(it.left)||40, parseFloat(it.top)||40, it.text); if(it.rot) tag.style.transform=`rotate(${it.rot}deg)`; }); }
+  function save(){ localStorage.setItem(LS.layout, JSON.stringify(serialize())); }
+  function load(){ const raw=localStorage.getItem(LS.layout); if(raw) try{ hydrate(JSON.parse(raw)); }catch(e){} }
+  load();
+
+  // Image handling
+  const savedImg=localStorage.getItem(LS.image); if(savedImg){ floor.src=savedImg; hint.style.display='none'; }
+  ['dragenter','dragover'].forEach(evt=>drop.addEventListener(evt,e=>{ e.preventDefault(); drop.classList.add('drag'); }));
+  ['dragleave','drop'].forEach(evt=>drop.addEventListener(evt,e=>{ e.preventDefault(); drop.classList.remove('drag'); }));
+  drop.addEventListener('drop', e=>{ const f=e.dataTransfer.files && e.dataTransfer.files[0]; if(f && f.type.startsWith('image/')){ const r=new FileReader(); r.onload=ev=>{ floor.src=ev.target.result; hint.style.display='none'; localStorage.setItem(LS.image, ev.target.result); }; r.readAsDataURL(f);} });
+  document.getElementById('useFile').addEventListener('click', ()=>{ const f=fileInput.files&&fileInput.files[0]; if(!f) return; const r=new FileReader(); r.onload=ev=>{ floor.src=ev.target.result; hint.style.display='none'; localStorage.setItem(LS.image, ev.target.result); picker.close(); }; r.readAsDataURL(f); });
+  document.getElementById('useURL').addEventListener('click', ()=>{ const u=urlInput.value.trim(); if(u){ floor.src=u; hint.style.display='none'; localStorage.setItem(LS.image, u); picker.close(); }});
+  document.getElementById('closePicker').addEventListener('click', ()=> picker.close());
+  document.getElementById('imgBtn').addEventListener('click', ()=> picker.showModal());
+
+  resetBtn.addEventListener('click', ()=>{ localStorage.removeItem(LS.layout); drop.querySelectorAll('.tag').forEach(el=>el.remove()); });
+  exportBtn.addEventListener('click', ()=>{ const blob=new Blob([JSON.stringify(serialize(),null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='tss-lighting-layout.json'; a.click(); });
+  importBtn.addEventListener('click', ()=>{ const i=document.createElement('input'); i.type='file'; i.accept='application/json'; i.onchange=()=>{ const f=i.files[0]; if(!f) return; const r=new FileReader(); r.onload=ev=>{ try{ const data=JSON.parse(ev.target.result); hydrate(data); save(); }catch(e){ alert('Invalid JSON'); } }; r.readAsText(f); }; i.click(); });
+})();
+</script>
+
+<!-- Embedded catalog JSON -->
+<script id="catalog" type="application/json">{"version":1,"categories":["camera","lights","grip","rigging","power","practicals","set","sound","misc"],"items":[{"id":"alexa-35","name":"ARRI Alexa 35","category":"camera","icon":"camera"},{"id":"alexa-mini","name":"ARRI Alexa Mini","category":"camera","icon":"camera"},{"id":"komodo-x","name":"RED Komodo X","category":"camera","icon":"camera"},{"id":"arri-skypanel-s60","name":"ARRI Skypanel S60-C","category":"lights","icon":"skypanel"},{"id":"nanlite-500b","name":"Nanlite 500B","category":"lights","icon":"panel"},{"id":"aputure-600d","name":"Aputure LS 600d Pro","category":"lights","icon":"point-light"},{"id":"tungsten-5k","name":"Tungsten 5K Fresnel","category":"lights","icon":"fresnel"},{"id":"hmi-m18","name":"ARRI M18 HMI","category":"lights","icon":"point-light"},{"id":"astera-titan","name":"Astera Titan Tube","category":"lights","icon":"panel"},{"id":"frame-8x8","name":"8\u00d78 Frame (open)","category":"grip","icon":"frame"},{"id":"cloth-8x8-fullgrid","name":"8\u00d78 Full Grid Cloth","category":"grip","icon":"frame"},{"id":"neg-4x4","name":"4\u00d74 Solid (Negative)","category":"grip","icon":"flag"},{"id":"c-stand","name":"C-Stand + Gobo Arm","category":"rigging","icon":"cstand"},{"id":"combo-stand","name":"Combo Stand","category":"rigging","icon":"combo"},{"id":"sandbag-25","name":"Sandbag 25 lb","category":"rigging","icon":"sandbag"},{"id":"subject","name":"Subject / Actor","category":"set","icon":"camera"},{"id":"table","name":"Table","category":"set","icon":"frame"},{"id":"chair","name":"Chair","category":"set","icon":"frame"},{"id":"door","name":"Door / Window","category":"set","icon":"frame"},{"id":"stinger-25","name":"Stinger 25\u2032 12/3","category":"power","icon":"cable"},{"id":"distro-box","name":"Distro Box / Lunchbox","category":"power","icon":"cable"},{"id":"colorchecker","name":"ColorChecker Video","category":"misc","icon":"panel"},{"id":"slate","name":"Slate / Clapboard","category":"misc","icon":"panel"}]}</script>
+</body>
+</html>
