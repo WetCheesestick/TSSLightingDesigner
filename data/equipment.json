@@ -1,0 +1,132 @@
+{
+  "version": 1,
+  "categories": [
+    "camera", "lights", "grip", "rigging", "power", "practicals", "set", "sound", "misc"
+  ],
+  "items": [
+    {
+      "id": "arri-skypanel-s60",
+      "name": "ARRI Skypanel S60-C",
+      "category": "lights",
+      "icon": "skypanel",                 // maps to an SVG glyph name
+      "photo": "assets/equipment/skypanel-s60.jpg",
+      "specs": {
+        "type": "LED soft",
+        "cct": "2800–10000K",
+        "output_lux_3m": 4100,
+        "size": "S60",
+        "weight_kg": 12.4,
+        "power_w": 450,
+        "connector": "powerCON / Edison"
+      }
+    },
+    {
+      "id": "aputure-600d",
+      "name": "Aputure LS 600d Pro",
+      "category": "lights",
+      "icon": "point-light",
+      "photo": "assets/equipment/aputure-600d.jpg",
+      "specs": {
+        "type": "LED point",
+        "cct": "5600K",
+        "output_lux_3m": 85000,
+        "weight_kg": 8.6,
+        "power_w": 720
+      }
+    },
+    {
+      "id": "tungsten-5k",
+      "name": "Tungsten 5K Fresnel",
+      "category": "lights",
+      "icon": "fresnel",
+      "photo": "assets/equipment/tung-5k.jpg",
+      "specs": {
+        "type": "Tungsten fresnel",
+        "cct": "3200K",
+        "power_w": 5000
+      }
+    },
+    {
+      "id": "nanlite-500b",
+      "name": "Nanlite 500B",
+      "category": "lights",
+      "icon": "panel",
+      "photo": "assets/equipment/nanlite-500b.jpg",
+      "specs": { "type": "Bi-color LED", "cct": "2700–6500K", "power_w": 500 }
+    },
+    {
+      "id": "diff-8x8",
+      "name": "8×8 Frame + Full Grid",
+      "category": "grip",
+      "icon": "frame",
+      "photo": "assets/equipment/8x8-grid.jpg",
+      "specs": { "size": "8×8", "notes": "Use with two combo stands & ears" }
+    },
+    {
+      "id": "neg-4x4",
+      "name": "4×4 Solid (Negative Fill)",
+      "category": "grip",
+      "icon": "flag",
+      "photo": "assets/equipment/4x4-solid.jpg"
+    },
+    {
+      "id": "c-stand",
+      "name": "C-Stand + Gobo Arm",
+      "category": "rigging",
+      "icon": "cstand",
+      "photo": "assets/equipment/cstand.jpg",
+      "specs": { "weight_kg": 5.5, "max_height_m": 3.0 }
+    },
+    {
+      "id": "combo-stand",
+      "name": "Combo Stand",
+      "category": "rigging",
+      "icon": "combo",
+      "photo": "assets/equipment/combo.jpg"
+    },
+    {
+      "id": "sandbag",
+      "name": "Sandbag 25 lb",
+      "category": "rigging",
+      "icon": "sandbag",
+      "photo": "assets/equipment/sandbag.jpg"
+    },
+    {
+      "id": "alexa-35",
+      "name": "ARRI Alexa 35",
+      "category": "camera",
+      "icon": "camera",
+      "photo": "assets/equipment/alexa35.jpg"
+    },
+    {
+      "id": "alexa-mini",
+      "name": "ARRI Alexa Mini",
+      "category": "camera",
+      "icon": "camera",
+      "photo": "assets/equipment/alexa-mini.jpg"
+    },
+    {
+      "id": "komodo-x",
+      "name": "RED Komodo X",
+      "category": "camera",
+      "icon": "camera",
+      "photo": "assets/equipment/komodo-x.jpg"
+    },
+    {
+      "id": "practical-edison",
+      "name": "Practical Table Lamp (Edison)",
+      "category": "practicals",
+      "icon": "bulb",
+      "photo": "assets/equipment/practical.jpg",
+      "specs": { "lamp_type": "E26", "dimmer": true }
+    },
+    {
+      "id": "stinger-25ft",
+      "name": "Stinger 25′ 12/3",
+      "category": "power",
+      "icon": "cable",
+      "photo": "assets/equipment/stinger.jpg",
+      "specs": { "rating_a": 20 }
+    }
+  ]
+}
