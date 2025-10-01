@@ -1,0 +1,565 @@
+{
+  "version": 1,
+  "symbols": [
+    {
+      "id": "fp-bookcase",
+      "name": "Bookcase",
+      "source_file": "Floor Plan SVGs/Bookcase.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-door-2",
+      "name": "Door-2",
+      "source_file": "Floor Plan SVGs/Door-2.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-bed-single",
+      "name": "Bed Single",
+      "source_file": "Floor Plan SVGs/Bed Single.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-wall-corner-se",
+      "name": "Wall (Corner SE)",
+      "source_file": "Floor Plan SVGs/Wall (Corner SE).svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-fireplace",
+      "name": "Fireplace",
+      "source_file": "Floor Plan SVGs/Fireplace.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-kitchen-table",
+      "name": "Kitchen Table",
+      "source_file": "Floor Plan SVGs/Kitchen Table.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-spiral-stairs",
+      "name": "Spiral Stairs",
+      "source_file": "Floor Plan SVGs/Spiral Stairs.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-door-di-fold",
+      "name": "Door Di-Fold",
+      "source_file": "Floor Plan SVGs/Door Di-Fold.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-door-uneven",
+      "name": "Door Uneven",
+      "source_file": "Floor Plan SVGs/Door Uneven.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-room",
+      "name": "Room",
+      "source_file": "Floor Plan SVGs/Room.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-couch",
+      "name": "Couch",
+      "source_file": "Floor Plan SVGs/Couch.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-shower",
+      "name": "Shower",
+      "source_file": "Floor Plan SVGs/Shower.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-wall-corner-ne",
+      "name": "Wall (Corner NE)",
+      "source_file": "Floor Plan SVGs/Wall (Corner NE).svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-window-garden",
+      "name": "Window Garden",
+      "source_file": "Floor Plan SVGs/Window Garden.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-door-overhead",
+      "name": "Door Overhead",
+      "source_file": "Floor Plan SVGs/Door Overhead.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-window-bay",
+      "name": "Window Bay",
+      "source_file": "Floor Plan SVGs/Window Bay.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-office-chair",
+      "name": "Office Chair",
+      "source_file": "Floor Plan SVGs/Office Chair.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-door-pocket",
+      "name": "Door Pocket",
+      "source_file": "Floor Plan SVGs/Door Pocket.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-office-table",
+      "name": "Office Table",
+      "source_file": "Floor Plan SVGs/Office Table.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-door-sliding-glass",
+      "name": "Door Sliding Glass",
+      "source_file": "Floor Plan SVGs/Door Sliding Glass.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-bathtub",
+      "name": "Bathtub",
+      "source_file": "Floor Plan SVGs/Bathtub.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-cooktop-1",
+      "name": "Cooktop 1",
+      "source_file": "Floor Plan SVGs/Cooktop 1.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-door-double",
+      "name": "Door Double",
+      "source_file": "Floor Plan SVGs/Door Double.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-wall-corner-nw",
+      "name": "Wall (Corner NW)",
+      "source_file": "Floor Plan SVGs/Wall (Corner NW).svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-horizontal-dimension",
+      "name": "Horizontal Dimension",
+      "source_file": "Floor Plan SVGs/Horizontal Dimension.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-flat-tv",
+      "name": "Flat TV",
+      "source_file": "Floor Plan SVGs/Flat TV.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-door-accordion",
+      "name": "Door Accordion",
+      "source_file": "Floor Plan SVGs/Door Accordion.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-tv",
+      "name": "TV",
+      "source_file": "Floor Plan SVGs/TV.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-cooktop-2",
+      "name": "Cooktop 2",
+      "source_file": "Floor Plan SVGs/Cooktop 2.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-round-kitchen-table",
+      "name": "Round Kitchen Table",
+      "source_file": "Floor Plan SVGs/Round Kitchen Table.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-large-kitchen-table-2",
+      "name": "Large Kitchen Table 2",
+      "source_file": "Floor Plan SVGs/Large Kitchen Table 2.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-wall-vertical",
+      "name": "Wall (Vertical)",
+      "source_file": "Floor Plan SVGs/Wall (Vertical).svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-plant",
+      "name": "Plant",
+      "source_file": "Floor Plan SVGs/Plant.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-large-kitchen-table",
+      "name": "Large Kitchen Table",
+      "source_file": "Floor Plan SVGs/Large Kitchen Table.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-piano",
+      "name": "Piano",
+      "source_file": "Floor Plan SVGs/Piano.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-vertical-dimension",
+      "name": "Vertical Dimension",
+      "source_file": "Floor Plan SVGs/Vertical Dimension.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-wall-corner-sw",
+      "name": "Wall (Corner SW)",
+      "source_file": "Floor Plan SVGs/Wall (Corner SW).svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-small-kitchen-table",
+      "name": "Small Kitchen Table",
+      "source_file": "Floor Plan SVGs/Small Kitchen Table.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-sink-double",
+      "name": "Sink Double",
+      "source_file": "Floor Plan SVGs/Sink Double.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-vertical-dimension-2",
+      "name": "Vertical Dimension-2",
+      "source_file": "Floor Plan SVGs/Vertical Dimension-2.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-door-revolving",
+      "name": "Door Revolving",
+      "source_file": "Floor Plan SVGs/Door Revolving.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-window-glider",
+      "name": "Window-Glider",
+      "source_file": "Floor Plan SVGs/Window-Glider.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-sink-2",
+      "name": "Sink 2",
+      "source_file": "Floor Plan SVGs/Sink 2.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-window-bow",
+      "name": "Window-Bow",
+      "source_file": "Floor Plan SVGs/Window-Bow.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-sink-1",
+      "name": "Sink 1",
+      "source_file": "Floor Plan SVGs/Sink 1.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-table",
+      "name": "Table",
+      "source_file": "Floor Plan SVGs/Table.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-work-staion",
+      "name": "Work Staion",
+      "source_file": "Floor Plan SVGs/Work Staion.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-horizontal-dimension-2",
+      "name": "Horizontal Dimension 2",
+      "source_file": "Floor Plan SVGs/Horizontal Dimension 2.svg",
+      "viewBox": "0 0 100 100",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-printer",
+      "name": "Printer",
+      "source_file": "Floor Plan SVGs/Printer.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-door-bypass",
+      "name": "Door ByPass",
+      "source_file": "Floor Plan SVGs/Door ByPass.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-toilet",
+      "name": "Toilet",
+      "source_file": "Floor Plan SVGs/Toilet.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-stairs",
+      "name": "Stairs",
+      "source_file": "Floor Plan SVGs/Stairs.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-large-office-table",
+      "name": "Large Office Table",
+      "source_file": "Floor Plan SVGs/Large Office Table.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-horizontal-dimension-2",
+      "name": "Horizontal Dimension-2",
+      "source_file": "Floor Plan SVGs/Horizontal Dimension-2.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-conference-table",
+      "name": "Conference Table",
+      "source_file": "Floor Plan SVGs/Conference Table.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-wall-horizontal",
+      "name": "Wall (Horizontal)",
+      "source_file": "Floor Plan SVGs/Wall (Horizontal).svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-dresser",
+      "name": "Dresser",
+      "source_file": "Floor Plan SVGs/Dresser.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-door-opposing",
+      "name": "Door Opposing",
+      "source_file": "Floor Plan SVGs/Door Opposing.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-stairs-3",
+      "name": "Stairs 3",
+      "source_file": "Floor Plan SVGs/Stairs 3.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-desk-corner",
+      "name": "Desk Corner",
+      "source_file": "Floor Plan SVGs/Desk Corner.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-door-double-pocket",
+      "name": "Door Double Pocket",
+      "source_file": "Floor Plan SVGs/Door Double Pocket.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-desk-corner-2",
+      "name": "Desk Corner 2",
+      "source_file": "Floor Plan SVGs/Desk Corner 2.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-door-double-action",
+      "name": "Door Double Action",
+      "source_file": "Floor Plan SVGs/Door Double Action.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-wall-u",
+      "name": "Wall (U)",
+      "source_file": "Floor Plan SVGs/Wall (U).svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-door",
+      "name": "Door",
+      "source_file": "Floor Plan SVGs/Door.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-laptop",
+      "name": "Laptop",
+      "source_file": "Floor Plan SVGs/Laptop.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-refridgerator",
+      "name": "Refridgerator",
+      "source_file": "Floor Plan SVGs/Refridgerator.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-office-table-1",
+      "name": "Office Table 1",
+      "source_file": "Floor Plan SVGs/Office Table 1.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-window",
+      "name": "Window",
+      "source_file": "Floor Plan SVGs/Window.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-stairs-2",
+      "name": "Stairs-2",
+      "source_file": "Floor Plan SVGs/Stairs-2.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-chair",
+      "name": "Chair",
+      "source_file": "Floor Plan SVGs/Chair.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-elevator",
+      "name": "Elevator",
+      "source_file": "Floor Plan SVGs/Elevator.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-bed-double",
+      "name": "Bed Double",
+      "source_file": "Floor Plan SVGs/Bed Double.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-copier",
+      "name": "Copier",
+      "source_file": "Floor Plan SVGs/Copier.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-water-cooler",
+      "name": "Water Cooler",
+      "source_file": "Floor Plan SVGs/Water Cooler.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-opening",
+      "name": "Opening",
+      "source_file": "Floor Plan SVGs/Opening.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-large-office-table-3",
+      "name": "Large Office Table 3",
+      "source_file": "Floor Plan SVGs/Large Office Table 3.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-large-office-table-2",
+      "name": "Large Office Table 2",
+      "source_file": "Floor Plan SVGs/Large Office Table 2.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-floor-lamp",
+      "name": "Floor Lamp",
+      "source_file": "Floor Plan SVGs/Floor Lamp.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    },
+    {
+      "id": "fp-sofa",
+      "name": "Sofa",
+      "source_file": "Floor Plan SVGs/Sofa.svg",
+      "viewBox": "0 0 42 42",
+      "category": "unknown"
+    }
+  ]
+}
